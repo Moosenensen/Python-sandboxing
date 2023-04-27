@@ -5,13 +5,22 @@ def numlength(a):
     return length
 
 def printlist(a):
-    for i in lista:
+    print(a)
+    for i in a:
         print(i,end='')
-def makelist(a):
-    for i in range(1,numlength(a)+1):
-        math.floor(a)
+def makelist(a, list):
+        
+        for i in range(1,numlength(a)+1):
+            b = a/(10**(numlength(a)-2*i))
+            math.floor(b)
+            list.append(b)
+            b = b*(10**(numlength(a)+i))
+            a = a-b
+            
+            return listx
+
 
 intnumb = int(input("test code "))
-intnumb = numlength(intnumb)
-lista = [1,2,3,4]
-makelist(lista)
+listx = []
+makelist(intnumb, listx)
+printlist(listx)
