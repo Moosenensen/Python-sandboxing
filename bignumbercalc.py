@@ -9,16 +9,17 @@ def printlist(a):
     for i in a:
         print(i,end='')
 def makelist(a, list):
-        
-        for i in range(1,numlength(a)+1):
-            b = a/(10**(numlength(a)-2*i))
-            math.floor(b)
+        print(numlength(a))
+        fart = a
+        for i in range(1,numlength(fart)+1):
+            b = a/(10**(numlength(fart)-i))
+            b = math.floor(b)
             list.append(b)
-            b = b*(10**(numlength(a)+i))
+            b = b*(10**(numlength(fart)-i))
             a = a-b
-            
-            return listx
-
+        return listx
+def addlist (a,b):
+     
 
 intnumb = int(input("test code "))
 listx = []
