@@ -65,18 +65,15 @@ def listadd(a,b,c):
     print(a)
     print(b)
     for i in range(len(a)):
-        print(c)
         if a[i] != '.':
             if a[i]+b[i] < 10:
                 c.append(a[i]+b[i])
             else:
                 if c[i-1] != '.':
                     c.append((a[i]+b[i]-10))
-                    print(c)
                     d = c[i-1]
                     c.pop(i-1)
                     c.insert(i-1,d+1)
-                    print(c)
                 else:
                     c.insert(i-1,c[i-2]+1)
                     c.pop(i-2)
