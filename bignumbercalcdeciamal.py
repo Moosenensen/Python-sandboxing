@@ -18,6 +18,9 @@ def printlist(a):
 def numcon(list,a):
     a = 0
     d = 0
+    if list[0] == "-":
+        d = 1
+    list.pop(0)
     for i in range(len(list)):
         if d == 0:
             if list[-i] != '.': 
@@ -26,6 +29,8 @@ def numcon(list,a):
                 d = 1
         else:
             a = a + list[-i]*-10*i-1
+    if d == 1:
+        a = a * -1
     return a
 def listlineup(lista, listb):
     for i in range(1, len(lista)+1 ):
@@ -94,7 +99,4 @@ a = []
 b = []
 c = []
 listcon(number,a)
-listcon(number2,b)
-listadd(a,b,c)
-print(c)
-printlist(c)
+numcon(a,number)
