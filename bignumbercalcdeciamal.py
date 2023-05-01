@@ -2,17 +2,20 @@ import math
 def listcon(num,list):
     f = 0
     for i in num:
-        if i == '.':
+        try:
+            list.append(int(i))
+
+        except:
             list.append(i)
             f = 1
-        else:
-            list.append(int(i)) 
+        
     if f == 0:
         list.append('.')   
     return list
 def printlist(a):
     for i in a:
         print(i,end='')
+    print()
 
 
 def numcon(list,a):
@@ -94,9 +97,11 @@ def listadd(a,b,c):
 
 
 number = input("num ")
-number2 = input("num ")
+#number2 = input("num ")
 a = []
 b = []
 c = []
 listcon(number,a)
+printlist(a)
 numcon(a,number)
+print(number)
