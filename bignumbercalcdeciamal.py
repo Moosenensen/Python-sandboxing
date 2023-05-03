@@ -1,6 +1,8 @@
 import math
 def listcon(num,list):
     f = 0
+    if num[0] != '-' or num[0] != '+':
+        list.append('+')
     for i in num:
         try:
             list.append(int(i))
@@ -69,11 +71,15 @@ def listlineup(lista, listb):
     return(lista, listb)    
 
 def listadd(a,b,c):
-    listlineup(a,b)
     print(a)
     print(b)
-    for i in range(len(a)):
-        if a[i] != '.':
+    printlist(a)
+    printlist(b)
+    for i in range(1, len(a)+1):
+        printlist(c)
+        print(str(a[i]) + ' ' + str(b[i]))
+        
+        try:
             if a[i]+b[i] < 10:
                 c.append(a[i]+b[i])
             else:
@@ -86,8 +92,9 @@ def listadd(a,b,c):
                     c.insert(i-1,c[i-2]+1)
                     c.pop(i-2)
                     c.append((a[i]+b[i]-10))
-        else:
-            c.append('.')
+        except:
+            
+                c.append('.')
     if c[0] == 0:
         c.pop(0)
 
@@ -97,11 +104,11 @@ def listadd(a,b,c):
 
 
 number = input("num ")
-#number2 = input("num ")
+number2 = input("num ")
 a = []
 b = []
 c = []
 listcon(number,a)
+listcon(number2,b)
 printlist(a)
-numcon(a,number)
-print(number)
+listadd(a,b,c)
