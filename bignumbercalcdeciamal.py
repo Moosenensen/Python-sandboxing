@@ -99,26 +99,77 @@ def ladd(a,b,c):
 def lscmp(a,b):
     llineup(a,b)
     sign = 0
-    for i in range(1, len(a)):
+    if a[0] == b[0]:
+        for i in range(1, len(a)):
         
         
-        if a[i] != '.':
+            if a[i] != '.':
             
-            if a[i]-b[i] != 0:
+                if a[i]-b[i] != 0:
 
-                if a[i]-b[i] <= 0:
-                    sign = 1
-                    break 
-                else:
-                    sign = 0
-                    break
+                    if a[i]-b[i] < 0:
+                        sign = 1
+                        break 
+                    else:
+                        sign = 0
+                        break
+    elif a[0] == '+':
+        sign = 0
+    else:
+        sign = 1
+
     return(sign)
 
             
     
 def lsub (a,b,c):
     llineup(a,b)
-
+    
+    if lscmp(a,b) == 1:
+        for i in range(1, len(a)):
+            
+            if b[-i] != '.':            
+                
+                if b[-i]-a[-i] >= 0:
+                    c.insert(0,b[-i]-a[-i])
+                else:
+                    for e in range(1,len(a)-1):
+                        
+                        if b[-i-e] != '.':
+                            if b[-i-e] == 0:
+                                b[-i-e] = 9
+                            else:
+                                
+                                b[-i-e]=(b[-i-e]-1)
+                                break
+                                  
+                    c.insert(0,(10+(b[-i]-a[-i])))       
+            else:
+                c.insert(0,'.')
+        c.insert(0,'-')
+    else:
+        for i in range(1, len(a)):
+            
+            if a[-i] != '.':            
+                
+                if a[-i]-b[-i] >= 0:
+                    c.insert(0,a[-i]-b[-i])
+                else:
+                    for e in range(1,len(a)-1):
+                        
+                        if a[-i-e] != '.':
+                            if a[-i-e] == 0:
+                                a[-i-e] = 9
+                            else:
+                                
+                                a[-i-e]=(a[-i-e]-1)
+                                break
+                                  
+                    c.insert(0,(10+(a[-i]-b[-i])))       
+            else:
+                c.insert(0,'.')  
+        c.insert(0,'+')           
+    return(c)
 
 
 
@@ -127,12 +178,12 @@ def lsub (a,b,c):
 
 #number = input("num ")
 #number2 = input("num ")
-number = "66666.1"
-number2 = "6666.1732"
+number2 = "98356.73"
+number = "-56.07347"
 a = []
 b = []
 c = []
 listcon(number,a)
 listcon(number2,b)
-
-print(lscmp(a,b))
+lsub(a,b,c)
+printlist(c)
