@@ -1,5 +1,6 @@
 import math
 def listcon(num,list):
+    #turns a string into a list number, no error correction make sure you type it in right
     f = 0
     if num[0] != '-' and num[0] != '+':
         list.append('+')
@@ -21,6 +22,7 @@ def printlist(a):
 
 
 def numcon(list,a):
+    #turns a list into a interger, idk if this works
     a = 0
     d = 0
     if list[0] == "-":
@@ -38,6 +40,7 @@ def numcon(list,a):
         a = a * -1
     return a
 def llineup(lista, listb):
+    #lines up numbers so that the '.' is in the same postion fills blanks with 0
     
     for i in range(1, len(lista)+1 ):
             if lista[-i] == '.': 
@@ -71,7 +74,11 @@ def llineup(lista, listb):
     return(lista, listb)  
  
 
-def ladd(a,b,c):
+def ladd(a1,b1,c):
+    #adds numbers if the signs are the same, sends to lsub if not
+    a =a1
+    b = b1
+    
     llineup(a,b)
     
     if a[0] == b[0]:
@@ -112,6 +119,7 @@ def ladd(a,b,c):
             lsub(a,b,c)
     return(c)
 def lscmp(a,b):
+#prints a boolean based on the bigger number
     llineup(a,b)
     sign = 0
     if a[0] == b[0]:
@@ -128,6 +136,7 @@ def lscmp(a,b):
                     else:
                         sign = 0
                         break
+    #0 means a is bigger 1 means b is bigger
     elif a[0] == '+':
         sign = 0
     else:
@@ -137,8 +146,13 @@ def lscmp(a,b):
 
             
     
-def lsub (a,b,c):
+def lsub (a1,b1,c):
+    #subtracts numbers sends to ladd if signs cancel
+    b = b1
+    a = a1
+    
     llineup(a,b)
+    
     if a[0] == b[0]:
         if lscmp(a,b) == 1:
             for i in range(1, len(a)):
@@ -193,7 +207,98 @@ def lsub (a,b,c):
             b.pop(0)
             b.insert(0,'+')  
             ladd(a,b,c)         
+    
     return(c)
+
+def ldec(a,b):
+    #finds how many numbers are behind the decimal point, for multiplication
+    for i in range(len(a)):
+        if a[i] == '.':
+            deca = len(a) -(i+1)
+            break
+    for i in range(len(b)):
+        if b[i] == '.':
+            decb = len(b) -(i+1)
+            break
+    dec = deca +decb
+    return(dec)
+def lrmdec(a,b):
+    #removes the decimal points from a number, 
+    for i in range(len(a)):
+        if a[i] == '.':
+            a.pop(i)
+            break
+    for i in range(len(b)):
+        if b[i] == '.':
+            b.pop(i)
+            break
+    a.pop(0)
+    b.pop(0)
+    a.insert(0,'+')
+    b.insert(0,'+')
+    a.append('.')
+    b.append('.')
+def lzero(a):
+    
+    
+    #returns 1 if a is zero 0 if not
+    l = 2
+    if a[0] == '+' or a[0] == '-':
+        l = 3
+
+    #for i in range(len(a)):
+    iszero = 0
+    if len(a) == l:
+        
+        if a[1] == 0:
+            iszero = 1
+            
+        else:
+            iszero = 0
+    
+    
+    return(iszero)
+        
+        
+
+
+
+def lmult(a1,b1,ans):
+    #multiplies numbers
+    c = []
+    c1 = []
+    one = ['+',1,'.']
+    a = a1
+    b = b1
+    #lrmdec changes the a and b this allows the a and b be to be reused without re entering them
+    decpos = ldec(a,b)
+    lrmdec(a,b)
+    if a[0] == b[0]:
+        sign = 0
+    else:
+        sign = 1
+    
+    
+    while lzero(b) == 0:
+        print(b)       
+        ladd(a,a1,c)
+        a = c
+        c=[]
+        c1 = []
+        lsub(b,one,c1)
+               
+        b = c1
+        print('loading')
+    ans = a
+    print(ans)
+    return(ans)
+                                                                                    
+
+
+
+
+    
+
 
 
 
@@ -202,12 +307,16 @@ def lsub (a,b,c):
 
 #number = input("num ")
 #number2 = input("num ")
-number2 = "356.73"
-number = "-56.07347"
+#2
+number = "2"
+#5
+number2 = "36"
 a = []
 b = []
 c = []
 listcon(number,a)
 listcon(number2,b)
-lsub(a,b,c)
+
+lmult(a,b,c)
+print(c)
 printlist(c)
