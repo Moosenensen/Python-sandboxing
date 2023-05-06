@@ -73,28 +73,43 @@ def llineup(lista, listb):
 
 def ladd(a,b,c):
     llineup(a,b)
-    c.append(0)
-    for i in range(1, len(a)):
-        
-        
-        if a[i] != '.':
-            if a[i]+b[i] < 10:
-                c.append(a[i]+b[i])
-            else:
-                if c[i-1] != '.':
-                    c.append((a[i]+b[i]-10))
-                    d = c[i-1]
-                    c.pop(i-1)
-                    c.insert(i-1,d+1)
-                else:
-                    c.insert(i-1,c[i-2]+1)
-                    c.pop(i-2)
-                    c.append((a[i]+b[i]-10))
-        else:
+    
+    if a[0] == b[0]:
+        c.append(0)
+        for i in range(1, len(a)):
             
-                c.append('.')
-    if c[0] == 0:
-        c.pop(0)
+            
+            if a[i] != '.':
+                if a[i]+b[i] < 10:
+                    c.append(a[i]+b[i])
+                else:
+                    if c[i-1] != '.':
+                        c.append((a[i]+b[i]-10))
+                        d = c[i-1]
+                        c.pop(i-1)
+                        c.insert(i-1,d+1)
+                    else:
+                        c.insert(i-1,c[i-2]+1)
+                        c.pop(i-2)
+                        c.append((a[i]+b[i]-10))
+            else:
+                
+                    c.append('.')
+        if c[0] == 0:
+            c.pop(0)
+        if a[0] == '+':
+            c.insert(0,'+')
+        else:
+            c.insert(0,'-')
+    else:
+        if a[0] == '-':
+            a.pop(0)
+            a.insert(0,'+')
+            lsub(b,a,c)
+        else:
+            b.pop(0)
+            b.insert(0,'+')
+            lsub(a,b,c)
     return(c)
 def lscmp(a,b):
     llineup(a,b)
@@ -124,51 +139,60 @@ def lscmp(a,b):
     
 def lsub (a,b,c):
     llineup(a,b)
-    
-    if lscmp(a,b) == 1:
-        for i in range(1, len(a)):
-            
-            if b[-i] != '.':            
+    if a[0] == b[0]:
+        if lscmp(a,b) == 1:
+            for i in range(1, len(a)):
                 
-                if b[-i]-a[-i] >= 0:
-                    c.insert(0,b[-i]-a[-i])
+                if b[-i] != '.':            
+                    
+                    if b[-i]-a[-i] >= 0:
+                        c.insert(0,b[-i]-a[-i])
+                    else:
+                        for e in range(1,len(a)-1):
+                            
+                            if b[-i-e] != '.':
+                                if b[-i-e] == 0:
+                                    b[-i-e] = 9
+                                else:
+                                    
+                                    b[-i-e]=(b[-i-e]-1)
+                                    break
+                                    
+                        c.insert(0,(10+(b[-i]-a[-i])))       
                 else:
-                    for e in range(1,len(a)-1):
-                        
-                        if b[-i-e] != '.':
-                            if b[-i-e] == 0:
-                                b[-i-e] = 9
-                            else:
-                                
-                                b[-i-e]=(b[-i-e]-1)
-                                break
-                                  
-                    c.insert(0,(10+(b[-i]-a[-i])))       
-            else:
-                c.insert(0,'.')
-        c.insert(0,'-')
+                    c.insert(0,'.')
+            c.insert(0,'-')
+        else:
+            for i in range(1, len(a)):
+                
+                if a[-i] != '.':            
+                    
+                    if a[-i]-b[-i] >= 0:
+                        c.insert(0,a[-i]-b[-i])
+                    else:
+                        for e in range(1,len(a)-1):
+                            
+                            if a[-i-e] != '.':
+                                if a[-i-e] == 0:
+                                    a[-i-e] = 9
+                                else:
+                                    
+                                    a[-i-e]=(a[-i-e]-1)
+                                    break
+                                    
+                        c.insert(0,(10+(a[-i]-b[-i])))       
+                else:
+                    c.insert(0,'.')  
+            c.insert(0,'+')
     else:
-        for i in range(1, len(a)):
-            
-            if a[-i] != '.':            
-                
-                if a[-i]-b[-i] >= 0:
-                    c.insert(0,a[-i]-b[-i])
-                else:
-                    for e in range(1,len(a)-1):
-                        
-                        if a[-i-e] != '.':
-                            if a[-i-e] == 0:
-                                a[-i-e] = 9
-                            else:
-                                
-                                a[-i-e]=(a[-i-e]-1)
-                                break
-                                  
-                    c.insert(0,(10+(a[-i]-b[-i])))       
-            else:
-                c.insert(0,'.')  
-        c.insert(0,'+')           
+        if a[0] == '-':
+            b.pop(0)
+            b.insert(0,'-')
+            ladd(a,b,c)
+        else:
+            b.pop(0)
+            b.insert(0,'+')  
+            ladd(a,b,c)         
     return(c)
 
 
@@ -178,7 +202,7 @@ def lsub (a,b,c):
 
 #number = input("num ")
 #number2 = input("num ")
-number2 = "98356.73"
+number2 = "356.73"
 number = "-56.07347"
 a = []
 b = []
